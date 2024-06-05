@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import AnimatedCounter from '../AnimatedCounter';
+import DoughnutChart from '../DoughnutChart';
 
 const TotalBalancebox = ({
   accounts = [],
@@ -10,8 +11,7 @@ const TotalBalancebox = ({
   return (
     <section className='total-balance'>
       <div className='total-balance-chart'>
-        {/* Uncomment and insert DonutChart component here */}
-        {/* <DonutChart data={accounts} /> */}
+        <DoughnutChart accounts={accounts} />
       </div>
 
       <div className='flex flex-col gap-6'>
