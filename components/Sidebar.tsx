@@ -13,7 +13,7 @@ const Sidebar = ({ user }) => {
   return (
     <section className='sidebar'>
       <nav className='flex flex-col gap-4'>
-        <Link href='/' className='logo-container mb-12 cursor-pointer flex items-center gap-2'>
+        <Link href='/' className='logo-container mb-6 md:mb-12 cursor-pointer flex items-center gap-2'>
           <Image
             src="/icons/capitalclub.png"
             width={40} // Adjusted width
@@ -21,7 +21,7 @@ const Sidebar = ({ user }) => {
             alt='Logo'
             className='logo-image'
           />
-          <h1 className='sidebar-logo text-lg font-bold'>Capital Club</h1> {/* Adjusted text size and font */}
+          <h1 className='sidebar-logo text-lg font-bold hidden md:block'>Capital Club</h1> {/* Adjusted text size and font */}
         </Link>
 
         {sidebarLinks.map((item) => {
@@ -33,15 +33,22 @@ const Sidebar = ({ user }) => {
               key={item.label}
               className={cn('sidebar-link', { 'bg-bank-gradient': isActive })}
             >
-                <div 
-                className='relative size-6'>
-                    <Image 
+              <div className='flex items-center'>
+                <div className='relative w-6 h-6'>
+                  <Image 
                     src={item.imgURL}
                     alt={item.label}
-                    fill
-                />
+                    width={24} // Adjusted width for smaller screens
+                    height={24} // Adjusted height for smaller screens
+                    className={cn({
+                      'brightness-75 invert-0' : isActive
+                    })}
+                  />
                 </div>
-              {item.label}
+                <p className={cn('sidebar-label', { 'text-white': isActive })}> {/* Corrected className prop */}
+                  {item.label}
+                </p>
+              </div>
             </Link>
           );
         })}
