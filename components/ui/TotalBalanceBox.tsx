@@ -1,7 +1,5 @@
-'use client'
+'use client';
 import React from 'react';
-import { formatAmount } from '@/lib/utils';
-import CountUp from 'react-countup/build/CountUp';
 import AnimatedCounter from '../AnimatedCounter';
 
 const TotalBalancebox = ({
@@ -26,13 +24,10 @@ const TotalBalancebox = ({
             Total Current Balance 
           </p>
 
-          <p className='total-balance-amount flex-center gap-2'>
-           <AnimatedCounter amount=
-           {totalCurrentBalance}
-           />
-
-
-          </p>
+          {/* Remove <p> and use <div> instead to avoid nested <div> inside <p> */}
+          <div className='total-balance-amount flex-center gap-2'>
+            <AnimatedCounter amount={totalCurrentBalance} />
+          </div>
         </div>
       </div>
     </section>

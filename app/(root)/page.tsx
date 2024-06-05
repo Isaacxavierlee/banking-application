@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import HeaderBox from '@/components/ui/HeaderBox';
 import TotalBalancebox from '@/components/ui/TotalBalancebox';
