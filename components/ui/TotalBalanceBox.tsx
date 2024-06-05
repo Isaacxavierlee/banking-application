@@ -1,4 +1,8 @@
+'use client'
 import React from 'react';
+import { formatAmount } from '@/lib/utils';
+import CountUp from 'react-countup/build/CountUp';
+import AnimatedCounter from '../AnimatedCounter';
 
 const TotalBalancebox = ({
   accounts = [],
@@ -19,11 +23,15 @@ const TotalBalancebox = ({
 
         <div className='flex flex-col gap-2'>
           <p className='total-balance-label'>
-            Total Current Balance: ${totalCurrentBalance.toFixed(2)}
+            Total Current Balance 
           </p>
 
           <p className='total-balance-amount flex-center gap-2'>
-            {totalCurrentBalance.toFixed(2)}
+           <AnimatedCounter amount=
+           {totalCurrentBalance}
+           />
+
+
           </p>
         </div>
       </div>
