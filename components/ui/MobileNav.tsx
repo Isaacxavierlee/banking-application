@@ -44,33 +44,37 @@ const MobileNav = ({ user }) => {
           </Link>
 
           <div className='mobilenav-sheet'>
-            <nav className='flex flex-col gap-4'>
-              {sidebarLinks.map((item) => {
-                const isActive = item.route === pathname || pathname.startsWith(`${item.route}/`);
-                return (
-                  <SheetClose asChild key={item.route}>
-                    <Link 
-                      href={item.route}
-                      className={cn('flex items-center gap-2 px-4 py-2 rounded-md transition-all', 
-                          { 'bg-bank-gradient text-white': isActive, 'text-black': !isActive })}
-                    >
-                      <Image 
-                        src={item.imgURL}
-                        alt={item.label}
-                        width={24}
-                        height={24}
-                        className={cn({
-                          'brightness-75 invert-0': isActive
-                        })}
-                      />
-                      <p className={cn('text-lg font-semibold', { 'text-white': isActive })}>
-                        {item.label}
-                      </p>
-                    </Link>
-                  </SheetClose>
-                );
-              })}
-            </nav>
+            <SheetClose asChild>
+              <nav className='flex flex-col gap-4'>
+                {sidebarLinks.map((item) => {
+                  const isActive = item.route === pathname || pathname.startsWith(`${item.route}/`);
+                  return (
+                    <SheetClose asChild key={item.route}>
+                      <Link 
+                        href={item.route}
+                        className={cn('flex items-center gap-2 px-4 py-2 rounded-md transition-all', 
+                            { 'bg-bank-gradient text-white': isActive, 'text-black': !isActive })}
+                      >
+                        <Image 
+                          src={item.imgURL}
+                          alt={item.label}
+                          width={24}
+                          height={24}
+                          className={cn({
+                            'brightness-75 invert-0': isActive
+                          })}
+                        />
+                        <p className={cn('text-lg font-semibold', { 'text-white': isActive })}>
+                          {item.label}
+                        </p>
+                      </Link>
+                    </SheetClose>
+                  );
+                })}
+                USER
+              </nav>
+            </SheetClose>
+            FOOTER
           </div>
         </SheetContent>
       </Sheet>
