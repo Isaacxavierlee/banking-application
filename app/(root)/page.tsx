@@ -1,14 +1,15 @@
-'use client';
-
+// Home component
 import React from 'react';
 import HeaderBox from '@/components/ui/HeaderBox';
 import TotalBalancebox from '@/components/ui/TotalBalancebox';
 import RightSidebar from '@/components/RightSidebar';
 
-// Home component
 const Home = () => {
-  const loggedIn = { firstName: 'Isaac', lastName:'Xavier', 
-    email:'Reivax.caasi@gmail.com' };
+  const loggedIn = {
+    firstName: 'Isaac',
+    lastName: 'Xavier',
+    email: 'Reivax.caasi@gmail.com'
+  };
 
   return (
     <section className='home'>
@@ -31,7 +32,10 @@ const Home = () => {
       <RightSidebar 
         user={loggedIn}
         transactions={[]}
-        banks={[]}
+        banks={[
+          { currentBalance: 123 },
+          { currentBalance: 123 }
+        ]}
       />
     </section>
   );
