@@ -3,20 +3,25 @@
 import React from 'react';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
+import Link from 'next/link';
+import { sidebarLinks } from '@/constants';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const MobileNav = ({ user }) => {
+  const pathname = usePathname();
+
   return (
     <section className="w-full">
       <Sheet>
         <SheetTrigger asChild>
-          <div className="fixed top-4 right-4 z-50"> {/* Adjusted position */}
+          <div className="fixed top-4 right-4 z-50">
             <Image 
               src="/icons/hamburger.svg"
               width={30}
@@ -26,14 +31,47 @@ const MobileNav = ({ user }) => {
             />
           </div>
         </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your account
-              and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
+        <SheetContent side="left" className='border-none bg-white p-4'>
+          <Link href='/' className='cursor-pointer flex items-center gap-2 mb-6'>
+            <Image
+              src="/icons/capitalclub.png"
+              width={40}
+              height={40}
+              alt='Logo'
+              className='logo-image'
+            />
+            <h1 className='text-2xl font-ibm-plex-serif font-bold text-black'>Capital Club</h1>
+          </Link>
+
+          <div className='mobilenav-sheet'>
+            <nav className='flex flex-col gap-4'>
+              {sidebarLinks.map((item) => {
+                const isActive = item.route === pathname || pathname.startsWith(`${item.route}/`);
+                return (
+                  <SheetClose asChild key={item.route}>
+                    <Link 
+                      href={item.route}
+                      className={cn('flex items-center gap-2 px-4 py-2 rounded-md transition-all', 
+                          { 'bg-bank-gradient text-white': isActive, 'text-black': !isActive })}
+                    >
+                      <Image 
+                        src={item.imgURL}
+                        alt={item.label}
+                        width={24}
+                        height={24}
+                        className={cn({
+                          'brightness-75 invert-0': isActive
+                        })}
+                      />
+                      <p className={cn('text-lg font-semibold', { 'text-white': isActive })}>
+                        {item.label}
+                      </p>
+                    </Link>
+                  </SheetClose>
+                );
+              })}
+            </nav>
+          </div>
         </SheetContent>
       </Sheet>
     </section>
