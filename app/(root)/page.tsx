@@ -33,8 +33,8 @@ const Home = () => {
         user={loggedIn}
         transactions={[]}
         banks={[
-          { currentBalance: 123 },
-          { currentBalance: 123 }
+          { $id: '1', name: 'Bank 1', currentBalance: 500000, mask: '1234' },
+          { $id: '2', name: 'Bank 2', currentBalance: 100000, mask: '5678' }
         ]}
       />
     </section>
