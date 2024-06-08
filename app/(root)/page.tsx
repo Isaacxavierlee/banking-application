@@ -1,10 +1,14 @@
 'use client';
+
 import React from 'react';
 import HeaderBox from '@/components/ui/HeaderBox';
 import TotalBalancebox from '@/components/ui/TotalBalancebox';
+import RightSidebar from '@/components/RightSidebar';
 
+// Home component
 const Home = () => {
-  const loggedIn = { firstName: 'Isaac' };
+  const loggedIn = { firstName: 'Isaac', lastName:'Xavier', 
+    email:'Reivax.caasi@gmail.com' };
 
   return (
     <section className='home'>
@@ -16,13 +20,19 @@ const Home = () => {
             user={loggedIn?.firstName || 'Guest'}
             subtext="Access and manage your account and transactions efficiently."
           />
+          <TotalBalancebox
+            accounts={[]}
+            totalBanks={1}
+            totalCurrentBalance={78000.35}
+          />
         </header>
-        <TotalBalancebox
-          accounts={[]}
-          totalBanks={1}
-          totalCurrentBalance={78000.35}
-        />
+        <div>Recent Transactions</div>
       </div>
+      <RightSidebar 
+        user={loggedIn}
+        transactions={[]}
+        banks={[]}
+      />
     </section>
   );
 }
