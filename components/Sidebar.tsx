@@ -52,7 +52,11 @@ const Sidebar = ({ user }) => {
             </Link>
           );
         })}
+
+        USER
       </nav>
+
+      FOOTER
     </section>
   );
 }
