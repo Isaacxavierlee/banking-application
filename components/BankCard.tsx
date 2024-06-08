@@ -28,7 +28,7 @@ const BankCard = ({ account, userName, showBalance }) => {
           </div>
           <div className="text-xs font-semibold text-gray-400 mt-2">Card Number</div>
           <div className="text-sm font-semibold text-gray-300">
-            ●●●● ●●●● ●●●● <span className="text-xs">{account?.mask}</span>
+          •••• •••• •••• <span className="text-xs">{account?.mask}</span>
           </div>
         </div>
 
