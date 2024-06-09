@@ -12,9 +12,11 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import CustomInput from './CustomInput';
 import { authformSchema } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -29,9 +31,11 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof authformSchema>) {
+  const onSubmit = (values: z.infer<typeof authformSchema>) => {
+    setIsLoading(true);
     console.log(values);
-  }
+    setIsLoading(false);
+  };
 
   if (!mounted) {
     return null;
@@ -55,10 +59,16 @@ const AuthForm = ({ type }: { type: string }) => {
 
         <div className="flex flex-col gap-1 md:gap-3">
           <h1 className="text-24 lg:text-36 font-semibold text-gray-900">
-            {user ? 'Link Account' : type === 'sign-in' ? 'Sign In' : 'Sign Up'}
+            {user 
+              ? 'Link Account'
+              : type === 'sign-in'
+                ? 'Sign In'
+                : 'Sign Up'}
           </h1>
           <p className="text-16 font-normal text-gray-600">
-            {user ? 'Link your account to get started' : 'Please enter your details'}
+            {user 
+              ? 'Link your account to get started'
+              : 'Please enter your details'}
           </p>
         </div>
       </header>
@@ -68,19 +78,37 @@ const AuthForm = ({ type }: { type: string }) => {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <CustomInput
-              control={form.control}
-              name="email"
-              label="Email"
-              placeholder="Enter your email"
-            />
-            <CustomInput
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-            />
-            <Button type="submit">Submit</Button>
+            {type === 'sign-up' && (
+              <>
+                <div className="flex gap-4">
+                  <CustomInput control={form.control} name="firstName" label="First Name" placeholder="Enter your first name" />
+                  <CustomInput control={form.control} name="lastName" label="Last Name" placeholder="Enter your last name" />
+                </div>
+                <CustomInput control={form.control} name="address1" label="Address" placeholder="Enter your specific address" />
+                <CustomInput control={form.control} name="city" label="City" placeholder="Enter your city" />
+                <div className="flex gap-4">
+                  <CustomInput control={form.control} name="state" label="State" placeholder="Example: NY" />
+                  <CustomInput control={form.control} name="postalCode" label="Postal Code" placeholder="Example: 11101" />
+                </div>
+                <div className="flex gap-4">
+                  <CustomInput control={form.control} name="dateOfBirth" label="Date of Birth" placeholder="YYYY-MM-DD" />
+                  <CustomInput control={form.control} name="ssn" label="SSN" placeholder="Example: 1234" />
+                </div>
+              </>
+            )}
+            <CustomInput control={form.control} name="email" label="Email" placeholder="Enter your email" />
+            <CustomInput control={form.control} name="password" label="Password" placeholder="Enter your password" />
+           
+            <Button type="submit" className="form-btn">
+              {isLoading ? (
+                <>
+                  <Loader2 size={20} className="animate-spin" /> &nbsp;
+                  Loading...
+                </>
+              ) : type === 'sign-in' 
+              ? 'Sign In' 
+              : 'Sign Up'}
+            </Button>
           </form>
         </Form>
       )}
