@@ -13,8 +13,10 @@ import { Form } from '@/components/ui/form';
 import CustomInput from './CustomInput';
 import { authformSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const AuthForm = ({ type }: { type: string }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -41,10 +43,28 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     console.log(values);
-    setIsLoading(false);
+    
+    try {
+      if (type === 'sign-up') {
+        // const newUser = await SignUp(values);
+        // setUser(newUser);
+      }
+
+      if (type === 'sign-in') {
+        // const response = await signIn({
+        //   email: values.email,
+        //   password: values.password,
+        // });
+        // if (response) router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!mounted) {
@@ -104,16 +124,16 @@ const AuthForm = ({ type }: { type: string }) => {
               <CustomInput control={form.control} name="email" label="Email" placeholder="Enter your email" />
               <CustomInput control={form.control} name="password" label="Password" placeholder="Enter your password" />
 
-              <div className='flex flex-col gap-4'>
-              <Button type="submit" className="form-btn" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 size={20} className="animate-spin" /> &nbsp;
-                    Loading...
-                  </>
-                ) : type === 'sign-in' ? 'Sign In' : 'Sign Up'}
-              </Button>
-            </div>
+              <div className="flex flex-col gap-4">
+                <Button type="submit" className="form-btn" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 size={20} className="animate-spin" /> &nbsp;
+                      Loading...
+                    </>
+                  ) : type === 'sign-in' ? 'Sign In' : 'Sign Up'}
+                </Button>
+              </div>
             </form>
           </Form>
           <footer className="flex justify-center gap-1">
