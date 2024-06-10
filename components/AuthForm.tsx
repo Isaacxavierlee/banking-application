@@ -14,7 +14,7 @@ import CustomInput from './CustomInput';
 import { authformSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { signUp } from '@/lib/actions/user.actions';
+import { signUp, signIn } from '@/lib/actions/user.actions';
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -50,18 +50,15 @@ const AuthForm = ({ type }: { type: string }) => {
     
     try {
       if (type === 'sign-up') {
-        const newUser = await signUp(data);
-         
+        const newUser = await signUp(values);
         setUser(newUser);
       }
 
       if (type === 'sign-in') {
-        //const response = await signIn({
-        //email: values.email,
-        //password: values.password,
-         //});
-
-         //if (response) router.push('/');
+        const session = await signIn(values.email, values.password);
+        if (session) {
+          router.push('/');
+        }
       }
     } catch (error) {
       console.log(error);

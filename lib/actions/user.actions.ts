@@ -5,11 +5,20 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
-export const signIn = async () => {
+export const signIn = async (email: string, password: string) => {
   try {
-    // signIn logic here
+    const { account } = await createSessionClient();
+    const session = await account.createEmailPasswordSession(email, password);
+    cookies().set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+    return session;
   } catch (error) {
     console.error('Error', error);
+    throw error; // Re-throw the error to be caught in the calling function
   }
 }
 
