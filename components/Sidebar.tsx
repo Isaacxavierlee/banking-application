@@ -1,65 +1,58 @@
 'use client';
 
-// Sidebar Component
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import Footer from './Footer'; // Import the Footer component
+import Footer from './Footer';
 
 const Sidebar = ({ user }) => {
   const pathname = usePathname();
 
   return (
-    <section className='sidebar'>
-      <nav className='flex flex-col gap-4'>
-        <Link href='/' className='logo-container mb-6 md:mb-12 cursor-pointer flex items-center gap-2'>
+    <section className="sidebar flex flex-col h-full bg-gray-100">
+      <nav className="flex-grow flex flex-col gap-4 p-4">
+        <Link href="/" className="logo-container mb-6 md:mb-12 cursor-pointer flex items-center gap-2">
           <Image
             src="/icons/capitalclub.png"
-            width={40} // Adjusted width
-            height={40} // Adjusted height
-            alt='Logo'
-            className='logo-image'
+            width={40}
+            height={40}
+            alt="Logo"
+            className="logo-image"
           />
-          <h1 className='sidebar-logo text-lg font-bold hidden md:block'>Capital Club</h1> {/* Adjusted text size and font */}
+          <h1 className="sidebar-logo text-lg font-bold hidden md:block">Capital Club</h1>
         </Link>
 
         {sidebarLinks.map((item) => {
           const isActive = item.route === pathname || pathname.startsWith(`${item.route}/`);
-
           return (
-            <Link 
+            <Link
               href={item.route}
               key={item.label}
-              className={cn('sidebar-link', { 'bg-bank-gradient': isActive })}
+              className={cn('sidebar-link flex items-center gap-4 p-2 rounded-md', { 'bg-blue-500 text-white': isActive })}
             >
-              <div className='flex items-center'>
-                <div className='relative w-6 h-6'>
-                  <Image 
-                    src={item.imgURL}
-                    alt={item.label}
-                    width={24} // Adjusted width for smaller screens
-                    height={24} // Adjusted height for smaller screens
-                    className={cn({
-                      'brightness-75 invert-0' : isActive
-                    })}
-                  />
-                </div>
-                <p className={cn('sidebar-label', { 'text-white': isActive })}> {/* Corrected className prop */}
-                  {item.label}
-                </p>
-              </div>
+              <Image
+                src={item.imgURL}
+                alt={item.label}
+                width={24}
+                height={24}
+                className={cn('sidebar-icon', { 'brightness-75': isActive })}
+              />
+              <p className={cn('sidebar-label text-base', { 'text-white': isActive })}>
+                {item.label}
+              </p>
             </Link>
           );
         })}
-
-        {/* Pass the user prop to the Footer component */}
-        <Footer user={user} />
       </nav>
+
+      <div className="mt-auto p-4">
+        <Footer user={user} type="desktop" />
+      </div>
     </section>
   );
-}
+};
 
 export default Sidebar;
