@@ -1,11 +1,11 @@
 'use client';
 
+// MobileNav Component
 import React from 'react';
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { sidebarLinks } from '@/constants';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import Footer from '../Footer'; // Import the Footer component
 
 const MobileNav = ({ user }) => {
   const pathname = usePathname();
@@ -71,10 +72,10 @@ const MobileNav = ({ user }) => {
                     </SheetClose>
                   );
                 })}
-                USER
+                {/* Pass the user prop to the Footer component and the type prop */}
+                <Footer user={user} type="mobile" />
               </nav>
             </SheetClose>
-            FOOTER
           </div>
         </SheetContent>
       </Sheet>

@@ -3,11 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import CustomInput from './CustomInput';
@@ -46,8 +44,7 @@ const AuthForm = ({ type }: { type: string }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    console.log(values);
-    
+
     try {
       if (type === 'sign-up') {
         const newUser = await signUp(values);
@@ -55,13 +52,17 @@ const AuthForm = ({ type }: { type: string }) => {
       }
 
       if (type === 'sign-in') {
-        const session = await signIn(values.email, values.password);
-        if (session) {
+        const response = await signIn
+        ({ email: values.email, 
+          password: values.password,
+        })
+
+        if (response) {
           router.push('/');
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +99,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
 
       {user ? (
-        <div className="flex flex-col gap-4">{/* plaidlink */}</div>
+        <div className="flex flex-col gap-4">{/* Insert PlaidLink Component */}</div>
       ) : (
         <>
           <Form {...form}>

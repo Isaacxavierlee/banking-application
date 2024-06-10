@@ -1,11 +1,13 @@
 'use client';
 
+// Sidebar Component
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import Footer from './Footer'; // Import the Footer component
 
 const Sidebar = ({ user }) => {
   const pathname = usePathname();
@@ -53,10 +55,9 @@ const Sidebar = ({ user }) => {
           );
         })}
 
-        USER
+        {/* Pass the user prop to the Footer component */}
+        <Footer user={user} />
       </nav>
-
-      FOOTER
     </section>
   );
 }

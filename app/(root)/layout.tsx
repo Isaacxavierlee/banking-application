@@ -1,16 +1,15 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
 import Sidebar from "@/components/Sidebar";
 import MobileNav from "@/components/ui/MobileNav";
+import Image from 'next/image';
+import { getLoggedInUser } from '@/lib/actions/user.actions';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = { firstName: 'Isaac', lastName: 'Xavier' };
+  const loggedIn = await getLoggedInUser();
 
   return (
     <main className="flex h-screen w-full font-inter">
