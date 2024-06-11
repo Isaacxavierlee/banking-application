@@ -11,7 +11,7 @@ const BankCard = ({ account, userName, showBalance }) => {
         {/* Bank Card Content */}
         <div className="bank-card-content">
           <h1 className="text-lg font-semibold text-white">
-            {account.name || userName}
+            {userName} 
           </h1>
           {/* Always show the balance */}
           <p className="text-sm font-semibold text-gray-400">
@@ -22,12 +22,12 @@ const BankCard = ({ account, userName, showBalance }) => {
         {/* Cardholder and Card Number */}
         <div className="mt-4">
           <div className="text-xs font-semibold text-gray-400 mb-1">Cardholder</div>
-          <div className="flex justify-between items-center">
-            <p className="text-sm font-semibold text-white">{userName}</p>
-            <p className="text-sm font-semibold text-gray-400">●● / ●●</p>
+          <div className="flex justify-between">
+            <p className="text-12 font-semibold text-white">{userName}</p>
+            <p className="text-12 font-semibold text-white">●● / ●●</p>
           </div>
           <div className="text-xs font-semibold text-gray-400 mt-2">Card Number</div>
-          <div className="text-sm font-semibold text-gray-300">
+          <div className="text-14 font-semibold tracking-[1.1px] text-white">
           •••• •••• •••• <span className="text-xs">{account?.mask}</span>
           </div>
         </div>
