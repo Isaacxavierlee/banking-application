@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link';
 import { useRouter } from 'next/navigation';
+import { createLinkToken } from '@/lib/actions/user.actions';
 
 const PlaidLink = ({ user, variant }) => {
     const router = useRouter();
@@ -9,9 +10,8 @@ const PlaidLink = ({ user, variant }) => {
 
     useEffect(() => {
         const getLinkToken = async () => {
-            // Uncomment and adjust this part according to your actual implementation
-            // const data = await createLinkToken(user);
-            // setToken(data?.linkToken);
+            const data = await createLinkToken(user);
+            setToken(data?.linkToken);
         };
 
         getLinkToken();
@@ -44,7 +44,7 @@ const PlaidLink = ({ user, variant }) => {
                     Connect Bank
                 </Button>
             ) : (
-                <Button>
+                <Button onClick={open} disabled={!ready}>
                     Connect Bank
                 </Button>
             )}
