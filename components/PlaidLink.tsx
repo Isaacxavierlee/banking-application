@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link';
+import { usePlaidLink, PlaidLinkOptions } from 'react-plaid-link';
 import { useRouter } from 'next/navigation';
 import { createLinkToken } from '@/lib/actions/user.actions';
 
-const PlaidLink = ({ user, variant }) => {
+const PlaidLink = ({ user, variant }: { user: any, variant: string }) => {
     const router = useRouter();
     const [token, setToken] = useState('');
 
@@ -17,7 +17,7 @@ const PlaidLink = ({ user, variant }) => {
         getLinkToken();
     }, [user]);
 
-    const onSuccess = useCallback(async (public_token) => {
+    const onSuccess = useCallback(async (public_token: string) => {
         // Uncomment and adjust this part according to your actual implementation
         // await exchangePublicToken({
         //     publicToken: public_token,
@@ -34,21 +34,9 @@ const PlaidLink = ({ user, variant }) => {
     const { open, ready } = usePlaidLink(config);
 
     return (
-        <>
-            {variant === 'primary' ? (
-                <Button
-                    onClick={open}
-                    disabled={!ready}
-                    className='plaidlink-primary'
-                >
-                    Connect Bank
-                </Button>
-            ) : (
-                <Button onClick={open} disabled={!ready}>
-                    Connect Bank
-                </Button>
-            )}
-        </>
+        <Button onClick={open} disabled={!ready} className={`plaidlink-${variant}`}>
+            Connect Bank
+        </Button>
     );
 };
 
